@@ -1,0 +1,26 @@
+{
+  "name": "searchit",
+  "version": "1.0.0",
+  "description": "Search App for Reddit using Reddit API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chethanbhat/searchit.git"
+  },
+  "keywords": [
+    "Reddit",
+    "Search",
+    "API",
+    "Node",
+    "Parcel"
+  ],
+  "author": "Chethan Bhat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chethanbhat/searchit/issues"
+  },
+  "homepage": "https://github.com/chethanbhat/searchit#readme"
+}
