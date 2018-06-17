@@ -103,7 +103,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({4:[function(require,module,exports) {
+})({17:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  search: function search(searchTerm, searchLimit, sortBy) {
+    return fetch("http://www.reddit.com/search.json?q=" + searchTerm + "&sort=" + sortBy + "&limit=" + searchLimit).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      return data.data.children.map(function (data) {
+        return data.data;
+      });
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  }
+};
+},{}],4:[function(require,module,exports) {
+'use strict';
+
+var _redditAPI = require('./redditAPI');
+
+var _redditAPI2 = _interopRequireDefault(_redditAPI);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var searchForm = document.getElementById('search-form');
 var searchInput = document.getElementById('search-input');
 
@@ -123,6 +150,17 @@ searchForm.addEventListener('submit', function (event) {
   // Clear input 
   searchInput.value = '';
   // Search Reddit
+  _redditAPI2.default.search(searchTerm, searchLimit, sortBy).then(function (results) {
+    var output = '<div class="card-columns">';
+    results.forEach(function (post) {
+      // Check for image
+      var image = post.preview ? post.preview.images[0].source.url : 'https://i2-prod.mirror.co.uk/incoming/article4648052.ece/ALTERNATES/s810/Reddit-logo.jpg';
+
+      output += '\n        <div class="card">\n        <img class="card-img-top" src="' + image + '" alt="Card image cap">\n        <div class="card-body">\n          <h5 class="card-title">' + post.title + '</h5>\n          <p class="card-text">' + truncateText(post.selftext, 100) + '</p>\n          <a href="' + post.url + '" target="_blank" class="btn btn-primary">Read More</a>\n          <hr>\n          <a href="https://www.reddit.com/r/' + post.subreddit + '" target="_blank"><span class="badge badge-secondary">Sub: r/' + post.subreddit + '</span></a>\n          <span class="badge badge-dark">Points: ' + post.score + '</span>\n        </div>\n      </div>\n        ';
+    });
+    output += '</div>';
+    document.getElementById('results').innerHTML = output;
+  });
 });
 
 // Show Message
@@ -145,7 +183,13 @@ function showMessage(message, className) {
     return document.querySelector('.alert').remove();
   }, 1000);
 }
-},{}],6:[function(require,module,exports) {
+
+function truncateText(text, limit) {
+  var shortened = text.indexOf(' ', limit);
+  if (shortened == -1) return text;
+  return text.substring(0, shortened);
+}
+},{"./redditAPI":17}],6:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
