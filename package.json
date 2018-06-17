@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/chethanbhat/searchit/issues"
   },
-  "homepage": "https://github.com/chethanbhat/searchit#readme"
+  "homepage": "https://github.com/chethanbhat/searchit#readme",
+  "dependencies": {
+    "moment": "^2.22.2"
+  }
 }

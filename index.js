@@ -1,4 +1,5 @@
 import reddit from './redditAPI';
+import moment from 'moment';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
@@ -9,6 +10,8 @@ searchForm.addEventListener('submit', event => {
   const searchTerm = searchInput.value;
   // Get sort
   const sortBy = document.querySelector('input[name="sortby"]:checked').value;
+  // Get Time
+  const time = document.querySelector('input[name="time"]:checked').value;
   // Get limit
   const searchLimit = document.getElementById('limit').value;
   // Check input
@@ -19,8 +22,9 @@ searchForm.addEventListener('submit', event => {
   // Clear input 
   searchInput.value = '';
   // Search Reddit
-  reddit.search(searchTerm, searchLimit, sortBy)
+  reddit.search(searchTerm, searchLimit, sortBy, time)
     .then(results => {
+      console.log(results)
       let output = '<div class="card-columns">';
       results.forEach(post => {
         // Check for image
@@ -34,6 +38,7 @@ searchForm.addEventListener('submit', event => {
           <p class="card-text">${truncateText(post.selftext, 100)}</p>
           <a href="${post.url}" target="_blank" class="btn btn-primary">Read More</a>
           <hr>
+          <h6>Posted: ${moment.unix(post.created_utc).fromNow()}</h6>
           <a href="https://www.reddit.com/r/${post.subreddit}" target="_blank"><span class="badge badge-secondary">Sub: r/${post.subreddit}</span></a>
           <span class="badge badge-dark">Points: ${post.score}</span>
         </div>
