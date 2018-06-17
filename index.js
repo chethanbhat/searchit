@@ -19,8 +19,6 @@ searchForm.addEventListener('submit', event => {
     // Show Message
     showMessage('Please add a search term', 'alert-danger')
   }
-  // Clear input 
-  searchInput.value = '';
   // Search Reddit
   reddit.search(searchTerm, searchLimit, sortBy, time)
     .then(results => {
@@ -39,7 +37,8 @@ searchForm.addEventListener('submit', event => {
           <a href="${post.url}" target="_blank" class="btn btn-primary">Read More</a>
           <hr>
           <h6>Posted: ${moment.unix(post.created_utc).fromNow()}</h6>
-          <a href="https://www.reddit.com/r/${post.subreddit}" target="_blank"><span class="badge badge-secondary">Sub: r/${post.subreddit}</span></a>
+          <a href="https://www.reddit.com/r/${post.permalink}" target="_blank"><span class="badge badge-primary">Comments</span></a>
+          <a href="https://www.reddit.com/r/${post.subreddit}" target="_blank"><span class="badge badge-secondary">r/${post.subreddit}</span></a>
           <span class="badge badge-dark">Points: ${post.score}</span>
         </div>
       </div>

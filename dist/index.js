@@ -4663,6 +4663,8 @@ searchForm.addEventListener('submit', function (event) {
     // Show Message
     showMessage('Please add a search term', 'alert-danger');
   }
+  // Clear input 
+  searchInput.value = '';
   // Search Reddit
   _redditAPI2.default.search(searchTerm, searchLimit, sortBy, time).then(function (results) {
     console.log(results);
@@ -4671,7 +4673,7 @@ searchForm.addEventListener('submit', function (event) {
       // Check for image
       var image = post.preview ? post.preview.images[0].source.url : 'https://i2-prod.mirror.co.uk/incoming/article4648052.ece/ALTERNATES/s810/Reddit-logo.jpg';
 
-      output += '\n        <div class="card">\n        <img class="card-img-top" src="' + image + '" alt="Card image cap">\n        <div class="card-body">\n          <h5 class="card-title">' + post.title + '</h5>\n          <p class="card-text">' + truncateText(post.selftext, 100) + '</p>\n          <a href="' + post.url + '" target="_blank" class="btn btn-primary">Read More</a>\n          <hr>\n          <h6>Posted: ' + _moment2.default.unix(post.created_utc).fromNow() + '</h6>\n          <a href="https://www.reddit.com/r/' + post.permalink + '" target="_blank"><span class="badge badge-primary">Comments</span></a>\n          <a href="https://www.reddit.com/r/' + post.subreddit + '" target="_blank"><span class="badge badge-secondary">r/' + post.subreddit + '</span></a>\n          <span class="badge badge-dark">Points: ' + post.score + '</span>\n        </div>\n      </div>\n        ';
+      output += '\n        <div class="card">\n        <img class="card-img-top" src="' + image + '" alt="Card image cap">\n        <div class="card-body">\n          <h5 class="card-title">' + post.title + '</h5>\n          <p class="card-text">' + truncateText(post.selftext, 100) + '</p>\n          <a href="' + post.url + '" target="_blank" class="btn btn-primary">Read More</a>\n          <hr>\n          <h6>Posted: ' + _moment2.default.unix(post.created_utc).fromNow() + '</h6>\n          <a href="https://www.reddit.com/r/' + post.subreddit + '" target="_blank"><span class="badge badge-secondary">Sub: r/' + post.subreddit + '</span></a>\n          <span class="badge badge-dark">Points: ' + post.score + '</span>\n        </div>\n      </div>\n        ';
     });
     output += '</div>';
     document.getElementById('results').innerHTML = output;
@@ -4704,7 +4706,7 @@ function truncateText(text, limit) {
   if (shortened == -1) return text;
   return text.substring(0, shortened);
 }
-},{"./redditAPI":6,"moment":7}],5:[function(require,module,exports) {
+},{"./redditAPI":6,"moment":7}],4:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -4733,7 +4735,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54235' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54048' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -4874,5 +4876,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[5,4], null)
-//# sourceMappingURL=/RedditSeachApp.441315f3.map
+},{}]},{},[4,4], null)
+//# sourceMappingURL=/index.map
